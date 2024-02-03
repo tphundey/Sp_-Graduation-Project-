@@ -1,13 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const GoogleAccount = require("../models/googleAccount");
+const Color = require("../models/Color");
 
-const routerGoogleAccounts = express.Router();
+const routerColors = express.Router();
 
 // Create
-routerGoogleAccounts.post("/", async (req, res) => {
+routerColors.post("/", async (req, res) => {
   try {
-    const newCourse = await GoogleAccount.create(req.body);
+    const newCourse = await Color.create(req.body);
     return res.status(201).json(newCourse);
   } catch (error) {
     return res.status(500).json({ error: "Could not create course" });
@@ -15,17 +15,17 @@ routerGoogleAccounts.post("/", async (req, res) => {
 });
 
 
-routerGoogleAccounts.get("/", async (req, res) => {
+routerColors.get("/", async (req, res) => {
   try {
     // Kiểm tra xem tham số email có được cung cấp trong URL không
     const userEmail = req.query.email;
     if (userEmail) {
       // Nếu email được cung cấp, lọc theo email
-      const courses = await GoogleAccount.find({ email: userEmail });
+      const courses = await Color.find({ email: userEmail });
       return res.status(200).json(courses);
     } else {
       // Nếu không có email nào được cung cấp, lấy tất cả các khóa học
-      const courses = await GoogleAccount.find();
+      const courses = await Color.find();
       return res.status(200).json(courses);
     }
   } catch (error) {
@@ -36,10 +36,10 @@ routerGoogleAccounts.get("/", async (req, res) => {
 
 
 // Read all
-routerGoogleAccounts.get('/:userId', async (req, res) => {
+routerColors.get('/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
-    const user = await GoogleAccount.findOne({ userId: userId });
+    const user = await Color.findOne({ userId: userId });
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
@@ -54,9 +54,9 @@ routerGoogleAccounts.get('/:userId', async (req, res) => {
 
 
 // Read all
-routerGoogleAccounts.get('/', async (req, res) => {
+routerColors.get('/', async (req, res) => {
   try {
-    const users = await GoogleAccount.find();
+    const users = await Color.find();
     return res.status(200).json(users);
   } catch (error) {
     return res.status(500).json({ error: 'Không thể lấy danh sách người dùng' });
@@ -65,9 +65,9 @@ routerGoogleAccounts.get('/', async (req, res) => {
 
 
 // Read by ID
-routerGoogleAccounts.get("/:id", async (req, res) => {
+routerColors.get("/:id", async (req, res) => {
   try {
-    const course = await GoogleAccount.findById(req.params.id);
+    const course = await Color.findById(req.params.id);
     if (!course) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -80,9 +80,9 @@ routerGoogleAccounts.get("/:id", async (req, res) => {
 
 
 // Update
-routerGoogleAccounts.put("/:id", async (req, res) => {
+routerColors.put("/:id", async (req, res) => {
   try {
-    const updatedCourse = await GoogleAccount.findByIdAndUpdate(
+    const updatedCourse = await Color.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
@@ -98,18 +98,18 @@ routerGoogleAccounts.put("/:id", async (req, res) => {
 
 
 
-routerGoogleAccounts.put("/:userID", async (req, res) => {
+routerColors.put("/:userID", async (req, res) => {
   try {
     const { userID } = req.params;
     const updatedUserData = req.body;
 
-    const existingUser = await GoogleAccount.findById(userID);
+    const existingUser = await Color.findById(userID);
 
     if (!existingUser) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const updatedUser = await GoogleAccount.findByIdAndUpdate(
+    const updatedUser = await Color.findByIdAndUpdate(
       userID,
       updatedUserData,
       { new: true }
@@ -125,9 +125,9 @@ routerGoogleAccounts.put("/:userID", async (req, res) => {
 
 
 // Delete
-routerGoogleAccounts.delete("/:id", async (req, res) => {
+routerColors.delete("/:id", async (req, res) => {
   try {
-    const deletedCourse = await GoogleAccount.findByIdAndDelete(req.params.id);
+    const deletedCourse = await Color.findByIdAndDelete(req.params.id);
     if (!deletedCourse) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -140,12 +140,12 @@ routerGoogleAccounts.delete("/:id", async (req, res) => {
 
 
 
-routerGoogleAccounts.patch("/:id", async (req, res) => {
+routerColors.patch("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { lock, role } = req.body;
 
-    const updatedUser = await GoogleAccount.findByIdAndUpdate(
+    const updatedUser = await Color.findByIdAndUpdate(
       id,
       { $set: { lock: lock, role: role } },
       { new: true }
@@ -161,4 +161,4 @@ routerGoogleAccounts.patch("/:id", async (req, res) => {
   }
 });
 
-module.exports = routerGoogleAccounts;
+module.exports = routerColors;

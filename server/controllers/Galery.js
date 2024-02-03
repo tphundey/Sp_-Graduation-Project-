@@ -1,13 +1,13 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
-const Notes = require("../models/notes");
-const routerNotes = express.Router();
+const Galery = require("../models/Galery");
+const routerGalery = express.Router();
 
 // Create
-routerNotes.post("/", async (req, res) => {
+routerGalery.post("/", async (req, res) => {
   try {
-    const newCourse = await Notes.create(req.body);
+    const newCourse = await Galery.create(req.body);
     return res.status(201).json(newCourse);
   } catch (error) {
     return res.status(500).json({ error: "Could not create course" });
@@ -15,9 +15,9 @@ routerNotes.post("/", async (req, res) => {
 });
 
 // Read all
-routerNotes.get("/", async (req, res) => {
+routerGalery.get("/", async (req, res) => {
   try {
-    const courses = await Notes.find();
+    const courses = await Galery.find();
     return res.status(200).json(courses);
   } catch (error) {
     return res.status(500).json({ error: "Could not retrieve courses" });
@@ -25,9 +25,9 @@ routerNotes.get("/", async (req, res) => {
 });
 
 // Read by ID
-routerNotes.get("/:id", async (req, res) => {
+routerGalery.get("/:id", async (req, res) => {
   try {
-    const course = await Notes.findById(req.params.id);
+    const course = await Galery.findById(req.params.id);
     if (!course) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -38,9 +38,9 @@ routerNotes.get("/:id", async (req, res) => {
 });
 
 // Update
-routerNotes.put("/:id", async (req, res) => {
+routerGalery.put("/:id", async (req, res) => {
   try {
-    const updatedCourse = await Notes.findByIdAndUpdate(
+    const updatedCourse = await Galery.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
@@ -55,9 +55,9 @@ routerNotes.put("/:id", async (req, res) => {
 });
 
 // Delete
-routerNotes.delete("/:id", async (req, res) => {
+routerGalery.delete("/:id", async (req, res) => {
   try {
-    const deletedCourse = await Notes.findByIdAndDelete(req.params.id);
+    const deletedCourse = await Galery.findByIdAndDelete(req.params.id);
     if (!deletedCourse) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -68,4 +68,4 @@ routerNotes.delete("/:id", async (req, res) => {
 });
 
 
-module.exports = routerNotes;
+module.exports = routerGalery;

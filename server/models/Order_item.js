@@ -13,5 +13,5 @@ dataSchema.set('toJSON', {
 
 const Order_Item = mongoose.model('Order_Item', dataSchema);
 
-module.exports = PayOrder_Itemment;
+module.exports = Order_Item;
 

@@ -1,13 +1,13 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
-const UserProgress = require("../models/userProgress");
-const routerUserProgress = express.Router();
+const User = require("../models/User");
+const routerUser = express.Router();
 
 // Create
-routerUserProgress.post("/", async (req, res) => {
+routerUser.post("/", async (req, res) => {
   try {
-    const newCourse = await UserProgress.create(req.body);
+    const newCourse = await User.create(req.body);
     return res.status(201).json(newCourse);
   } catch (error) {
     return res.status(500).json({ error: "Could not create course" });
@@ -15,9 +15,9 @@ routerUserProgress.post("/", async (req, res) => {
 });
 
 // Read all
-routerUserProgress.get("/", async (req, res) => {
+routerUser.get("/", async (req, res) => {
   try {
-    const courses = await UserProgress.find();
+    const courses = await User.find();
     return res.status(200).json(courses);
   } catch (error) {
     return res.status(500).json({ error: "Could not retrieve courses" });
@@ -25,9 +25,9 @@ routerUserProgress.get("/", async (req, res) => {
 });
 
 // Read by ID
-routerUserProgress.get("/:id", async (req, res) => {
+routerUser.get("/:id", async (req, res) => {
   try {
-    const course = await UserProgress.findById(req.params.id);
+    const course = await User.findById(req.params.id);
     if (!course) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -38,9 +38,9 @@ routerUserProgress.get("/:id", async (req, res) => {
 });
 
 // Update
-routerUserProgress.put("/:id", async (req, res) => {
+routerUser.put("/:id", async (req, res) => {
   try {
-    const updatedCourse = await UserProgress.findByIdAndUpdate(
+    const updatedCourse = await User.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
@@ -55,9 +55,9 @@ routerUserProgress.put("/:id", async (req, res) => {
 });
 
 // Delete
-routerUserProgress.delete("/:id", async (req, res) => {
+routerUser.delete("/:id", async (req, res) => {
   try {
-    const deletedCourse = await UserProgress.findByIdAndDelete(req.params.id);
+    const deletedCourse = await User.findByIdAndDelete(req.params.id);
     if (!deletedCourse) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -67,4 +67,4 @@ routerUserProgress.delete("/:id", async (req, res) => {
   }
 });
 
-module.exports = routerUserProgress;
+module.exports = routerUser;

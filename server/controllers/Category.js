@@ -1,84 +1,84 @@
-// controllers/coursesController.js
+// controllers/CategorysController.js
 
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const Course = require("../models/courses");
+const Category = require("../models/Category");
 
 // Create
 router.post("/", async (req, res) => {
   try {
-    const newCourse = await Course.create(req.body);
-    return res.status(201).json(newCourse);
+    const newCategory = await Category.create(req.body);
+    return res.status(201).json(newCategory);
   } catch (error) {
-    return res.status(500).json({ error: "Could not create course" });
+    return res.status(500).json({ error: "Could not create Category" });
   }
 });
 
 // Read all
 router.get("/", async (req, res) => {
   try {
-    const courses = await Course.find();
-    return res.status(200).json(courses);
+    const Categorys = await Category.find();
+    return res.status(200).json(Categorys);
   } catch (error) {
-    return res.status(500).json({ error: "Could not retrieve courses" });
+    return res.status(500).json({ error: "Could not retrieve Categorys" });
   }
 });
 
 // Read by ID
 router.get("/:id", async (req, res) => {
   try {
-    const course = await Course.findById(req.params.id);
-    if (!course) {
-      return res.status(404).json({ error: "Course not found" });
+    const Category = await Category.findById(req.params.id);
+    if (!Category) {
+      return res.status(404).json({ error: "Category not found" });
     }
-    return res.status(200).json(course);
+    return res.status(200).json(Category);
   } catch (error) {
-    return res.status(500).json({ error: "Could not retrieve course" });
+    return res.status(500).json({ error: "Could not retrieve Category" });
   }
 });
 
 // Update
 router.patch("/:id", async (req, res) => {
   try {
-    const updatedCourse = await Course.findByIdAndUpdate(
+    const updatedCategory = await Category.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
     );
-    if (!updatedCourse) {
-      return res.status(404).json({ error: "Course not found" });
+    if (!updatedCategory) {
+      return res.status(404).json({ error: "Category not found" });
     }
-    return res.status(200).json(updatedCourse);
+    return res.status(200).json(updatedCategory);
   } catch (error) {
-    return res.status(500).json({ error: "Could not update course" });
+    return res.status(500).json({ error: "Could not update Category" });
   }
 });
 router.put("/:id", async (req, res) => {
   try {
-    const updatedCourse = await Course.findByIdAndUpdate(
+    const updatedCategory = await Category.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
     );
-    if (!updatedCourse) {
-      return res.status(404).json({ error: "Course not found" });
+    if (!updatedCategory) {
+      return res.status(404).json({ error: "Category not found" });
     }
-    return res.status(200).json(updatedCourse);
+    return res.status(200).json(updatedCategory);
   } catch (error) {
-    return res.status(500).json({ error: "Could not update course" });
+    return res.status(500).json({ error: "Could not update Category" });
   }
 });
 // Delete
 router.delete("/:id", async (req, res) => {
   try {
-    const deletedCourse = await Course.findByIdAndDelete(req.params.id);
-    if (!deletedCourse) {
-      return res.status(404).json({ error: "Course not found" });
+    const deletedCategory = await Category.findByIdAndDelete(req.params.id);
+    if (!deletedCategory) {
+      return res.status(404).json({ error: "Category not found" });
     }
     return res.status(204).json();
   } catch (error) {
-    return res.status(500).json({ error: "Could not delete course" });
+    return res.status(500).json({ error: "Could not delete Category" });
   }
 });
 

@@ -2,13 +2,13 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
-const posts = require("../models/posts");
-const routerPosts = express.Router();
+const Order = require("../models/Order");
+const routerOrder = express.Router();
 
 // Create
-routerPosts.post("/", async (req, res) => {
+routerOrder.post("/", async (req, res) => {
   try {
-    const newCourse = await posts.create(req.body);
+    const newCourse = await Order.create(req.body);
     return res.status(201).json(newCourse);
   } catch (error) {
     return res.status(500).json({ error: "Could not create course" });
@@ -16,29 +16,29 @@ routerPosts.post("/", async (req, res) => {
 });
 
 // Read all
-routerPosts.get("/", async (req, res) => {
+routerOrder.get("/", async (req, res) => {
   try {
-    const allPosts = await posts.find();
+    const allOrder = await Order.find();
 
-    if (!allPosts || allPosts.length === 0) {
-      return res.status(404).json({ error: "No posts found" });
+    if (!allOrder || allOrder.length === 0) {
+      return res.status(404).json({ error: "No Order found" });
     }
 
-    const reversedPosts = allPosts.reverse();
+    const reversedOrder = allOrder.reverse();
 
-    return res.status(200).json(reversedPosts);
+    return res.status(200).json(reversedOrder);
   } catch (error) {
     if (error.name === "MongoError" && error.code === 18) {
       return res.status(500).json({ error: "Invalid parameter format" });
     }
-    return res.status(500).json({ error: "Could not retrieve posts" });
+    return res.status(500).json({ error: "Could not retrieve Order" });
   }
 });
 
 
-routerPosts.get("/:id", async (req, res) => {
+routerOrder.get("/:id", async (req, res) => {
   try {
-    const course = await posts.findById(req.params.id);
+    const course = await Order.findById(req.params.id);
     if (!course) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -48,12 +48,12 @@ routerPosts.get("/:id", async (req, res) => {
   }
 });
 // Update Likes, LikedBy, and Comments
-routerPosts.patch("/:id", async (req, res) => {
+routerOrder.patch("/:id", async (req, res) => {
   try {
     const { likes, likedBy, comments } = req.body;
 
     // Update likes, likedBy, and comments for the post
-    const updatedPost = await posts.findByIdAndUpdate(
+    const updatedPost = await Order.findByIdAndUpdate(
       req.params.id,
       { likes, likedBy, comments },
       { new: true }
@@ -69,9 +69,9 @@ routerPosts.patch("/:id", async (req, res) => {
   }
 });
 // Update
-routerPosts.put("/:id", async (req, res) => {
+routerOrder.put("/:id", async (req, res) => {
   try {
-    const updatedCourse = await posts.findByIdAndUpdate(
+    const updatedCourse = await Order.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
@@ -86,9 +86,9 @@ routerPosts.put("/:id", async (req, res) => {
 });
 
 // Delete
-routerPosts.delete("/:id", async (req, res) => {
+routerOrder.delete("/:id", async (req, res) => {
   try {
-    const deletedCourse = await posts.findByIdAndDelete(req.params.id);
+    const deletedCourse = await Order.findByIdAndDelete(req.params.id);
     if (!deletedCourse) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -98,4 +98,4 @@ routerPosts.delete("/:id", async (req, res) => {
   }
 });
 
-module.exports = routerPosts;
+module.exports = routerOrder;

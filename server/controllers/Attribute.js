@@ -1,11 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const routerCate = express.Router();
-const Categories = require("../models/categories");
+const Attribute = require("../models/Attribute");
 // Create
 routerCate.post("/", async (req, res) => {
   try {
-    const newCourse = await Categories.create(req.body);
+    const newCourse = await Attribute.create(req.body);
     return res.status(201).json(newCourse);
   } catch (error) {
     return res.status(500).json({ error: "Could not create course" });
@@ -15,7 +15,7 @@ routerCate.post("/", async (req, res) => {
 // Read all
 routerCate.get("/", async (req, res) => {
   try {
-    const courses = await Categories.find();
+    const courses = await Attribute.find();
     return res.status(200).json(courses);
   } catch (error) {
     return res.status(500).json({ error: "Could not retrieve cate" });
@@ -25,7 +25,7 @@ routerCate.get("/", async (req, res) => {
 // Read by ID
 routerCate.get("/:id", async (req, res) => {
   try {
-    const course = await Categories.findById(req.params.id);
+    const course = await Attribute.findById(req.params.id);
     if (!course) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -38,7 +38,7 @@ routerCate.get("/:id", async (req, res) => {
 // Update
 routerCate.patch("/:id", async (req, res) => {
   try {
-    const updatedCourse = await Categories.findByIdAndUpdate(
+    const updatedCourse = await Attribute.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
@@ -55,7 +55,7 @@ routerCate.patch("/:id", async (req, res) => {
 // Delete
 routerCate.delete("/:id", async (req, res) => {
   try {
-    const deletedCourse = await Categories.findByIdAndDelete(req.params.id);
+    const deletedCourse = await Attribute.findByIdAndDelete(req.params.id);
     if (!deletedCourse) {
       return res.status(404).json({ error: "Course not found" });
     }

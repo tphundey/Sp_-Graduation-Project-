@@ -2,13 +2,13 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
-const Coupons = require("../models/coupon");
+const Cart = require("../models/Cart");
 const routerCoupon = express.Router();
 
 // Create
 routerCoupon.post("/", async (req, res) => {
   try {
-    const newCourse = await Coupons.create(req.body);
+    const newCourse = await Cart.create(req.body);
     return res.status(201).json(newCourse);
   } catch (error) {
     return res.status(500).json({ error: "Could not create course" });
@@ -18,7 +18,7 @@ routerCoupon.post("/", async (req, res) => {
 // Read all
 routerCoupon.get("/", async (req, res) => {
   try {
-    const allPosts = await Coupons.find();
+    const allPosts = await Cart.find();
 
     if (!allPosts || allPosts.length === 0) {
       return res.status(404).json({ error: "No posts found" });
@@ -38,7 +38,7 @@ routerCoupon.get("/", async (req, res) => {
 
 routerCoupon.get("/:id", async (req, res) => {
   try {
-    const course = await Coupons.findById(req.params.id);
+    const course = await Cart.findById(req.params.id);
     if (!course) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -58,7 +58,7 @@ routerCoupon.put('/:id', async (req, res) => {
     }
 
     // Find the coupon by ID and update the quantity
-    const updatedCoupon = await Coupons.findByIdAndUpdate(
+    const updatedCoupon = await Cart.findByIdAndUpdate(
       req.params.id,
       { $set: { quantity } },
       { new: true }
@@ -77,7 +77,7 @@ routerCoupon.put('/:id', async (req, res) => {
 // Delete
 routerCoupon.delete("/:id", async (req, res) => {
   try {
-    const deletedCourse = await Coupons.findByIdAndDelete(req.params.id);
+    const deletedCourse = await Cart.findByIdAndDelete(req.params.id);
     if (!deletedCourse) {
       return res.status(404).json({ error: "Course not found" });
     }

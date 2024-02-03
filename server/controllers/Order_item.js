@@ -1,14 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Payment = require("../models/payment");
+const Order_item = require("../models/Order_item");
 
 
-const routerPayments = express.Router();
+const routerOrder_items = express.Router();
 
 // Create
-routerPayments.post("/", async (req, res) => {
+routerOrder_items.post("/", async (req, res) => {
   try {
-    const newCourse = await Payment.create(req.body);
+    const newCourse = await Order_item.create(req.body);
     return res.status(201).json(newCourse);
   } catch (error) {
     return res.status(500).json({ error: "Could not create course" });
@@ -16,9 +16,9 @@ routerPayments.post("/", async (req, res) => {
 });
 
 // Read all
-routerPayments.get("/", async (req, res) => {
+routerOrder_items.get("/", async (req, res) => {
   try {
-    const courses = await Payment.find();
+    const courses = await Order_item.find();
     return res.status(200).json(courses);
   } catch (error) {
     return res.status(500).json({ error: "Could not retrieve courses" });
@@ -26,9 +26,9 @@ routerPayments.get("/", async (req, res) => {
 });
 
 // Read by ID
-routerPayments.get("/:id", async (req, res) => {
+routerOrder_items.get("/:id", async (req, res) => {
   try {
-    const course = await Payment.findById(req.params.id);
+    const course = await Order_item.findById(req.params.id);
     if (!course) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -39,9 +39,9 @@ routerPayments.get("/:id", async (req, res) => {
 });
 
 // Update
-routerPayments.put("/:id", async (req, res) => {
+routerOrder_items.put("/:id", async (req, res) => {
   try {
-    const updatedCourse = await Payment.findByIdAndUpdate(
+    const updatedCourse = await Order_item.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
@@ -56,9 +56,9 @@ routerPayments.put("/:id", async (req, res) => {
 });
 
 // Delete
-routerPayments.delete("/:id", async (req, res) => {
+routerOrder_items.delete("/:id", async (req, res) => {
   try {
-    const deletedCourse = await Payment.findByIdAndDelete(req.params.id);
+    const deletedCourse = await Order_item.findByIdAndDelete(req.params.id);
     if (!deletedCourse) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -68,4 +68,4 @@ routerPayments.delete("/:id", async (req, res) => {
   }
 });
 
-module.exports = routerPayments;
+module.exports = routerOrder_items;

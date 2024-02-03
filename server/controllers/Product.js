@@ -1,38 +1,38 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
-const Reviews = require("../models/reviews");
-const routerReviews = express.Router();
+const Product = require("../models/Product");
+const routerProduct = express.Router();
 
 // Create
-routerReviews.post("/", async (req, res) => {
+routerProduct.post("/", async (req, res) => {
   try {
-    const newCourse = await Reviews.create(req.body);
+    const newCourse = await Product.create(req.body);
     return res.status(201).json(newCourse);
   } catch (error) {
     return res.status(500).json({ error: "Could not create course" });
   }
 });
 
-routerReviews.get("/", async (req, res) => {
+routerProduct.get("/", async (req, res) => {
   try {
     const { courseID } = req.query;
     if (courseID) {
-      const filteredReviews = await Reviews.find({ courseID });
-      return res.status(200).json(filteredReviews);
+      const filteredProduct = await Product.find({ courseID });
+      return res.status(200).json(filteredProduct);
     }
 
-    const allReviews = await Reviews.find();
-    return res.status(200).json(allReviews);
+    const allProduct = await Product.find();
+    return res.status(200).json(allProduct);
   } catch (error) {
-    return res.status(500).json({ error: "Could not retrieve reviews" });
+    return res.status(500).json({ error: "Could not retrieve Product" });
   }
 });
 
 // Read by ID
-routerReviews.get("/:id", async (req, res) => {
+routerProduct.get("/:id", async (req, res) => {
   try {
-    const course = await Reviews.findById(req.params.id);
+    const course = await Product.findById(req.params.id);
     if (!course) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -43,9 +43,9 @@ routerReviews.get("/:id", async (req, res) => {
 });
 
 // Update
-routerReviews.put("/:id", async (req, res) => {
+routerProduct.put("/:id", async (req, res) => {
   try {
-    const updatedCourse = await Reviews.findByIdAndUpdate(
+    const updatedCourse = await Product.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
@@ -60,9 +60,9 @@ routerReviews.put("/:id", async (req, res) => {
 });
 
 // Delete
-routerReviews.delete("/:id", async (req, res) => {
+routerProduct.delete("/:id", async (req, res) => {
   try {
-    const deletedCourse = await Reviews.findByIdAndDelete(req.params.id);
+    const deletedCourse = await Product.findByIdAndDelete(req.params.id);
     if (!deletedCourse) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -72,4 +72,4 @@ routerReviews.delete("/:id", async (req, res) => {
   }
 });
 
-module.exports = routerReviews;
+module.exports = routerProduct;
