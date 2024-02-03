@@ -11,5 +11,5 @@ dataSchema.set('toJSON', {
     }
 });
 
-const Notes = mongoose.model('Order', dataSchema);
-module.exports = Notes;
+const Order = mongoose.model('Order', dataSchema);
+module.exports = Order;

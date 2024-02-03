@@ -11,7 +11,7 @@ dataSchema.set('toJSON', {
     }
 });
 
-const Payment = mongoose.model('Attribute', dataSchema);
+const Attribute = mongoose.model('Attribute', dataSchema);
 
-module.exports = Payment;
+module.exports = Attribute;
 

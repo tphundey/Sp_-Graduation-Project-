@@ -11,7 +11,7 @@ dataSchema.set('toJSON', {
     }
 });
 
-const Videos = mongoose.model('Color', dataSchema);
+const Color = mongoose.model('Color', dataSchema);
 
-module.exports = Videos;
+module.exports = Color;
 

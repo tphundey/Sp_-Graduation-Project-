@@ -11,6 +11,6 @@ dataSchema.set('toJSON', {
     }
 });
 
-const Categories = mongoose.model('Galery', dataSchema);
+const Galery = mongoose.model('Galery', dataSchema);
 
-module.exports = Categories;
+module.exports = Galery;

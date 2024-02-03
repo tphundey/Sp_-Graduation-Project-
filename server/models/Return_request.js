@@ -11,6 +11,6 @@ dataSchema.set('toJSON', {
     }
 });
 
-const Categories = mongoose.model('Return_Request', dataSchema);
+const Return_Request = mongoose.model('Return_Request', dataSchema);
 
-module.exports = Categories;
+module.exports = Return_Request;

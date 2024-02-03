@@ -11,7 +11,7 @@ dataSchema.set('toJSON', {
     }
 });
 
-const Reviews = mongoose.model('Review', dataSchema);
+const Review = mongoose.model('Review', dataSchema);
 
-module.exports = Reviews;
+module.exports = Review;
 

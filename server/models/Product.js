@@ -11,6 +11,6 @@ dataSchema.set('toJSON', {
     }
 });
 
-const Courses = mongoose.model('Product', dataSchema);
+const Product = mongoose.model('Product', dataSchema);
 
-module.exports = Courses;
+module.exports = Product;

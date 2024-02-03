@@ -11,7 +11,7 @@ dataSchema.set('toJSON', {
     }
 });
 
-const Payment = mongoose.model('Role', dataSchema);
+const Role = mongoose.model('Role', dataSchema);
 
-module.exports = Payment;
+module.exports = Role;
 

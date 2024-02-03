@@ -11,7 +11,7 @@ dataSchema.set('toJSON', {
     }
 });
 
-const UserProgress = mongoose.model('Size', dataSchema);
+const Size = mongoose.model('Size', dataSchema);
 
-module.exports = UserProgress;
+module.exports = Size;
 

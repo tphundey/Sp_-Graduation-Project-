@@ -11,7 +11,7 @@ dataSchema.set('toJSON', {
     }
 });
 
-const userVideoProgress = mongoose.model('Product_Incoming', dataSchema);
+const Product_Incoming = mongoose.model('Product_Incoming', dataSchema);
 
-module.exports = userVideoProgress;
+module.exports = Product_Incoming;
 

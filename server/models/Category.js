@@ -11,7 +11,7 @@ dataSchema.set('toJSON', {
     }
 });
 
-const posts = mongoose.model('Category', dataSchema);
+const Category = mongoose.model('Category', dataSchema);
 
-module.exports = posts;
+module.exports = Category;
 

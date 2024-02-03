@@ -11,6 +11,6 @@ dataSchema.set('toJSON', {
     }
 });
 
-const GoogleAccount = mongoose.model('User', dataSchema);
+const User = mongoose.model('User', dataSchema);
 
-module.exports = GoogleAccount;
+module.exports = User;
