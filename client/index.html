@@ -130,7 +130,7 @@
     <!-- Header Section End -->
 
     <!-- Hero Section Begin -->
-    <section  style="height: 500px"class="hero mb-5">
+    <section style="height: 500px" class="hero mb-5">
         <div style="height: 500px" class="hero__slider owl-carousel">
             <div style="height: 500px" class="hero__items set-bg"
                 data-setbg="https://kingshoes.vn/data/upload/media/coverwebcrep-1554432453i-1622454041-1623428656.png">
@@ -169,43 +169,9 @@
                     </ul>
                 </div>
             </div>
-            <div class="row product__filter">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" id="product-1">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
-                            <span class="label">New</span>
-                            <ul class="product__hover">
-                                <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                                <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6>Piqué Biker Jacket</h6>
-                            <a href="#" class="add-cart">+ Add To Cart</a>
-                            <div class="rating">
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                            </div>
-                            <h5>$67.24</h5>
-                            <div class="product__color__select">
-                                <label for="pc-1">
-                                    <input type="radio" id="pc-1">
-                                </label>
-                                <label class="active black" for="pc-2">
-                                    <input type="radio" id="pc-2">
-                                </label>
-                                <label class="grey" for="pc-3">
-                                    <input type="radio" id="pc-3">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              
+            <div class="row product__filter" id="products-container">
+
+
     </section>
     <!-- Product Section End -->
 
@@ -441,6 +407,71 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // Fetch data from the API endpoint
+        axios.get('http://localhost:3000/product')
+            .then(function (response) {
+                // Handle the successful response
+                // Assuming response.data is an array of products
+                response.data.forEach(function (product, index) {
+                    // Create HTML elements for each product and append them to the container
+                    var productHtml = `
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" >
+                                    <img src="${product.image}" id="product-image-${index}">
+                                    <span class="label">New</span>
+                                    <ul class="product__hover">
+                                        <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
+                                        <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+                                        <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                 <h6>${product.name}</h6>
+                                    <a href="http://127.0.0.1:5501/client/shop-details.html?id=${product.id} class="add-cart">+ Add To Cart</a>
+                                    <div class="rating">
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <h5>${product.price}</h5>
+                                    <div class="product__color__select">
+                                        <label for="pc-${index}-1">
+                                            <input type="radio" id="pc-${index}-1" onclick="changeProductImage('${product.image}', ${index})">
+                                        </label>
+                                        <label class="active black" for="pc-${index}-2">
+                                            <input type="radio" id="pc-${index}-2" onclick="changeProductImage('${product.image2}', ${index})">
+                                        </label>
+                                        <label class="grey" for="pc-${index}-3">
+                                            <input type="radio" id="pc-${index}-3" onclick="changeProductImage('${product.image3}', ${index})">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+
+                    // Append the product HTML to the container
+                    document.getElementById('products-container').insertAdjacentHTML('beforeend', productHtml);
+                });
+            })
+            .catch(function (error) {
+                // Handle errors
+                console.error('Error fetching data:', error);
+            });
+
+        // Function to change product image
+        function changeProductImage(imageUrl, index) {
+            var productImage = document.getElementById(`product-image-${index}`);
+            productImage.src = imageUrl;
+        }
+    </script>
+
+
+
 </body>
 
 </html>
