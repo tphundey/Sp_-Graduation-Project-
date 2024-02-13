@@ -5,7 +5,7 @@ export const getProduct = createAsyncThunk(
     'product/getProduct',
     async () => {
       try {
-        const data = await instance.get(`/products`);
+        const data = await instance.get(`/product`);
         // Đảo ngược mảng dữ liệu trước khi trả về
         return data.reverse();
       } catch (error) {
@@ -18,7 +18,7 @@ export const getProductById = createAsyncThunk(
     async (id, { rejectWithValue }) => {
         try {
             // Gọi API để lấy sản phẩm với ID tương ứng
-            const response = await instance.get(`/products/${id}`); // Thay đổi đường dẫn và phương thức HTTP tùy thuộc vào API của bạn
+            const response = await instance.get(`/product/${id}`); // Thay đổi đường dẫn và phương thức HTTP tùy thuộc vào API của bạn
 
             // Trả về dữ liệu sản phẩm nếu thành công
             return response.data;
@@ -44,7 +44,7 @@ export const updateProduct = createAsyncThunk(
     'product/updateProduct',
     async (product) => {
         try {
-            const data = await instance.patch(`/products/${product.id}`, product);
+            const data = await instance.patch(`/product/${product.id}`, product);
             return data;
         } catch (error) {
 
@@ -57,7 +57,7 @@ export const removeProduct = createAsyncThunk(
         try {
             const confirm = window.confirm("Bạn có chắc xóa chứ!");
             if(confirm) {
-                await instance.delete(`/products/${id}`);
+                await instance.delete(`/product/${id}`);
                 alert(`Xóa thành công`);
             }else {
                 // If the user cancels the deletion, return early without doing anything

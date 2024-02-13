@@ -4,7 +4,8 @@ import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { Spin } from 'antd';
-const SuaSanPham: React.FC = () => {
+
+const EditProduct: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [product, setProduct] = useState<any>({});
     const [loading, setLoading] = useState<boolean>(true);
@@ -16,29 +17,30 @@ const SuaSanPham: React.FC = () => {
             img: '',
             color: '',
             quantity: 0,
-            author: 'null',
+            author: '',
         }
     });
 
     useEffect(() => {
-        setLoading(true); // Bắt đầu loading
-        // Lấy dữ liệu sản phẩm từ API và đặt vào form
-        axios.get(`http://localhost:3000/products/${id}`)
+        setLoading(true); // Start loading
+        // Fetch product data from the API and populate the form
+        axios.get(`http://localhost:3000/product/${id}`)
             .then(response => {
                 setProduct(response.data);
-                reset(response.data); // Reset form values với dữ liệu sản phẩm
+                reset(response.data); // Reset form values with product data
             })
             .catch(error => toast.error(error.message))
-            .finally(() => setLoading(false)); // Kết thúc loading khi dữ liệu đã được nhận
+            .finally(() => setLoading(false)); // End loading when data is received
     }, [id, reset]);
 
     const onSubmit = (data: any) => {
-        axios.patch(`http://localhost:3000/products/${id}`, data)
+        axios.patch(`http://localhost:3000/product/${id}`, data)
             .then(() => {
-                toast.success('Sản phẩm đã được cập nhật!');
+                toast.success('Product updated successfully!');
             })
             .catch(error => toast.error(error.message));
     };
+
     if (loading) {
         return (
             <Spin
@@ -52,20 +54,18 @@ const SuaSanPham: React.FC = () => {
             />
         );
     }
+
     return (
         <div className="formadd">
-
-
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <label>
-                        Tên sản phẩm:
+                        Product Name:
                         <Controller
                             name="name"
                             control={control}
                             rules={{
-                                required: 'Không được để trống dữ liệu',
-
+                                required: 'Name is required',
                             }}
                             render={({ field }) => <input type="text" {...field} />}
                         />
@@ -74,13 +74,13 @@ const SuaSanPham: React.FC = () => {
                 </div>
                 <div>
                     <label>
-                        Giá sản phẩm:
+                        Price:
                         <Controller
                             name="price"
                             control={control}
                             rules={{
-                                required: 'Không được để trống dữ liệu',
-                                min: { value: 0, message: 'Giá sản phẩm phải lớn hơn 0' },
+                                required: 'Price is required',
+                                min: { value: 0, message: 'Price must be greater than 0' },
                             }}
                             render={({ field }) => <input type="number" {...field} />}
                         />
@@ -89,27 +89,26 @@ const SuaSanPham: React.FC = () => {
                 </div>
                 <div>
                     <label>
-                        Ảnh sản phẩm:
+                        Image URL:
                         <Controller
                             name="img"
                             control={control}
                             rules={{
-                                required: 'Không được để trống dữ liệu',
+                                required: 'Image URL is required',
                             }}
                             render={({ field }) => <input type="text" {...field} />}
                         />
                     </label>
                     {errors.img && <div className="error">{errors.img.message}</div>}
                 </div>
-
                 <div>
                     <label>
-                        Màu sắc:
+                        Color:
                         <Controller
                             name="color"
                             control={control}
                             rules={{
-                                required: 'Không được để trống dữ liệu',
+                                required: 'Color is required',
                             }}
                             render={({ field }) => <input type="text" {...field} />}
                         />
@@ -118,13 +117,13 @@ const SuaSanPham: React.FC = () => {
                 </div>
                 <div>
                     <label>
-                        Số lượng:
+                        Quantity:
                         <Controller
                             name="quantity"
                             control={control}
                             rules={{
-                                required: 'Không được để trống dữ liệu',
-                                min: { value: 0, message: 'Số lượng phải lớn hơn 0' },
+                                required: 'Quantity is required',
+                                min: { value: 0, message: 'Quantity must be greater than 0' },
                             }}
                             render={({ field }) => <input type="number" {...field} />}
                         />
@@ -133,24 +132,23 @@ const SuaSanPham: React.FC = () => {
                 </div>
                 <div>
                     <label>
-                        Tác giả:
+                        Author:
                         <Controller
                             name="author"
                             control={control}
                             rules={{
-                                required: 'Không được để trống dữ liệu',
+                                required: 'Author is required',
                             }}
-                            render={({ field }) => <input  {...field} />}
+                            render={({ field }) => <input type="text" {...field} />}
                         />
                     </label>
-                    {errors.quantity && <div className="error">{errors.quantity.message}</div>}
+                    {errors.author && <div className="error">{errors.author.message}</div>}
                 </div>
-                <button type="submit">Cập nhật sản phẩm</button>
+                <button type="submit">Update Product</button>
             </form>
-            {/* Component ToastContainer để hiển thị thông báo */}
             <ToastContainer />
         </div>
     );
 };
 
-export default SuaSanPham;
+export default EditProduct;

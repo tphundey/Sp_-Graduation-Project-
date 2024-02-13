@@ -40,13 +40,13 @@ const AddProductForm: React.FC<AddProductFormProps> = () => {
     formData.append('file', file);
 
     try {
-      const response = await fetch(`https://api.cloudinary.com/v1_1/dsk9jrxzf/image/upload?upload_preset=movies`, {
+      const response = await fetch(`https://api.cloudinary.com/v1_1/dem0uwchx/image/upload?upload_preset=t7ahvua5`, {
         method: 'POST',
         body: formData,
       });
 
       const data = await response.json();
-      setValue('img', data.secure_url);
+      setValue('image', data.secure_url);
     } catch (error) {
       console.error('Error uploading file to Cloudinary:', error);
     }
@@ -132,7 +132,7 @@ const AddProductForm: React.FC<AddProductFormProps> = () => {
             Upload hình ảnh:
             <div {...getRootProps()} className="dropzone">
               <input {...getInputProps()} />
-              <p >Drag 'n' drop an image here, or click to select one</p>
+              <p >Kéo hoặc thả hình ảnh vào đây!</p>
             </div>
             {errors.img && <div className="error p-3">{errors.img.message}</div>}
           </label>

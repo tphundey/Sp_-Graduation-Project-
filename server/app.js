@@ -17,11 +17,12 @@ const mongoDBUrl = "mongodb+srv://Graduation:123@cluster0.nzrddg9.mongodb.net/Sp
 // Kết nối cloudDinary
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({
-    cloud_name: 'dsk9jrxzf',
-    api_key: '612129235538518',
-    api_secret: 'FZkzoeuEcvkqDZmbiqrpmoKSEVA',
+    cloud_name: 'dem0uwchx',
+    api_key: '616121123543263',
+    api_secret: 'JmKB7DBwJxpmibnEz3mzmHQOeIk',
 
 });
+
 cloudinary.uploader.upload("https://s120-ava-talk.zadn.vn/f/1/7/8/139/120/c5debf8a117bcbf7a86ed9ab75f1dc10.jpg",
     { public_id: "olympic_flag" },
     function (error, result) {

@@ -22,6 +22,8 @@ import UpdateCategory from "./components/Admin/Category/UpdateCategory/UpdateCat
 import { auth } from "./components/AuthFirebase/auth";
 import { onAuthStateChanged } from 'firebase/auth';
 import Dashboard from "./components/Admin/Thongke/Thongke";
+import Suasanpham from "./components/Admin/Product/Updatesanpham/Updatesanpham";
+import UpdateProductForm from "./components/Admin/Product/Updatesanpham/Updatesanpham";
 
 interface Product {
   id: number;
@@ -88,7 +90,9 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="admin/products" element={<Listproduct  />} />
             <Route path="admin/addsanpham" element={<AddProductFormProps onAddProduct={handleAddProduct} />} />
-            <Route path="admin/suasanpham/:id" element={<SuaSanPham />} />
+            <Route path="admin/suasanpham/:id" element={<UpdateProductForm onUpdateProduct={function (product: any): void {
+              throw new Error("Function not implemented.");
+            } } />} />
             <Route path="admin/category">
               <Route index element={<Listdanhmuc />} />
               <Route path="admin/addCate" element={<AddCategory onAddCategory={handleAddCate} />} />
