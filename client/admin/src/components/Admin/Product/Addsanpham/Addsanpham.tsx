@@ -59,7 +59,7 @@ const AddProductForm: React.FC<AddProductFormProps> = () => {
 
   const fetchMaterials = async () => {
     try {
-      const response = await fetch('http://localhost:3000/categories');
+      const response = await fetch('http://localhost:3000/category');
       const data = await response.json();
       setMaterials(data);
     } catch (error) {
@@ -103,7 +103,7 @@ const AddProductForm: React.FC<AddProductFormProps> = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>
-            Tên sách:
+            Tên sản phẩm:
             <Controller
               name="name"
               control={control}
@@ -127,24 +127,24 @@ const AddProductForm: React.FC<AddProductFormProps> = () => {
             {errors.price && <div className="error">{errors.price.message}</div>}
           </label>
         </div>
-        <div>
+        <div className=' p-3'>
           <label>
             Upload hình ảnh:
             <div {...getRootProps()} className="dropzone">
               <input {...getInputProps()} />
-              <p>Drag 'n' drop an image here, or click to select one</p>
+              <p >Drag 'n' drop an image here, or click to select one</p>
             </div>
-            {errors.img && <div className="error">{errors.img.message}</div>}
+            {errors.img && <div className="error p-3">{errors.img.message}</div>}
           </label>
         </div>
         <div>
           <Controller
             name="categoriesId"
             control={control}
-            rules={{ required: 'Vui lòng chọn chất liệu' }}
+            rules={{ required: 'Vui lòng chọn loại giày' }}
             render={({ field }) => (
               <select {...field}>
-                <option value="">-- Chọn danh mục --</option>
+                <option value="">-- Chọn loại giày --</option>
                 {materials.map((material) => (
                   <option key={material.id} value={material.id}>
                     {material.name}
@@ -169,20 +169,7 @@ const AddProductForm: React.FC<AddProductFormProps> = () => {
             {errors.color && <div className="error">{errors.color.message}</div>}
           </label>
         </div>
-        <div>
-          <label>
-            Tác giả:
-            <Controller
-              name="author"
-              control={control}
-              rules={{
-                required: 'Không được để trống dữ liệu',
-              }}
-              render={({ field }) => <input type="text" {...field} />}
-            />
-          </label>
-          {errors.color && <div className="error">{errors.color.message}</div>}
-        </div>
+
         <div>
           <label>
             Số lượng:

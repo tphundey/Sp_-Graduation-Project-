@@ -1,22 +1,19 @@
 import './Listproduct.css';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Pagination, Table } from 'antd';
+import { Pagination, Table, Button, Space, Modal } from 'antd';
 import { Spin } from 'antd';
-import axios from 'axios'; // Import thư viện axios để gửi HTTP request
+import axios from 'axios'; 
 
 const Listproduct = () => {
-    const [products, setProducts] = useState([]); // Khởi tạo state để lưu danh sách sản phẩm
-    const [loading, setLoading] = useState(true); // Thêm state để kiểm soát trạng thái loading
+    const [products, setProducts] = useState([]); 
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
-        // Khi bắt đầu fetch dữ liệu
         setLoading(true);
 
-        // Gửi HTTP GET request để lấy danh sách sản phẩm từ API
         axios.get('http://localhost:3000/product')
             .then(response => {
-                // Khi nhận được dữ liệu từ API, lưu vào state và tắt trạng thái loading
                 setProducts(response.data);
                 setLoading(false);
             })
@@ -24,14 +21,14 @@ const Listproduct = () => {
                 console.error('Error fetching products:', error);
                 setLoading(false);
             });
-    }, []); // [] đảm bảo useEffect chỉ chạy một lần sau khi component mount
+    }, []); 
 
     const columns = [
         {
-            title: 'Mã sản phẩm',
-            dataIndex: 'id',
-            key: 'id',
-            render: (text, record) => `SP00${text}`,
+            title: 'STT',
+            dataIndex: '',
+            key: 'index',
+            render: (text, record, index) => index + 1,
         },
         {
             title: 'Hình ảnh',
@@ -50,10 +47,45 @@ const Listproduct = () => {
             dataIndex: 'price',
             key: 'price',
         },
-        // Các cột khác tương tự...
+        {
+            title: 'Số lượng trong kho',
+            dataIndex: 'quantity',
+            key: 'quantity',
+        },
+        {
+            title: 'Hành động',
+            key: 'action',
+            render: (text, record) => (
+                <Space size="middle">
+                    <Button className='bg-blue-500 text-white' type="primary">Sửa</Button>
+                    <Button className='bg-red-500 text-white' type="danger" onClick={() => handleDelete(record)}>Xóa</Button>
+                </Space>
+            ),
+        },
     ];
 
-    // Tính toán phân trang
+    const handleDelete = (record) => {
+        Modal.confirm({
+            title: 'Xác nhận',
+            content: `Bạn có chắc chắn muốn xóa sản phẩm "${record.name}" không?`,
+            okText: 'Xác nhận',
+            cancelText: 'Hủy',
+            onOk: () => {
+                setLoading(true);
+                axios.delete(`http://localhost:3000/product/${record.id}`)
+                    .then(() => {
+                        // Xóa sản phẩm khỏi danh sách và cập nhật trạng thái loading
+                        setProducts(products.filter(item => item.id !== record.id));
+                        setLoading(false);
+                    })
+                    .catch(error => {
+                        console.error('Error deleting product:', error);
+                        setLoading(false);
+                    });
+            },
+        });
+    };
+
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 4;
     const totalItems = products.length;
@@ -62,14 +94,13 @@ const Listproduct = () => {
     const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
     const currentItems = products.slice(startIndex, endIndex);
 
-    // Xử lý sự kiện chuyển trang
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
 
     return (
         <div>
-            <Link className='themspmoi' to="/admin/addsanpham">Thêm sách mới!</Link>
+            <Link className='btn-neutral p-2' style={{borderRadius:4}} to="/admin/addsanpham">Thêm sản phẩm mới!</Link>
 
             {loading ? (
                 <Spin

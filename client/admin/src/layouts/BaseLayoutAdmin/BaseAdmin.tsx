@@ -35,12 +35,12 @@ const BaseLayoutadmin = () => {
               {
                 key: "1",
                 icon: <AiOutlineBarChart />,
-                label: <Link to="/admin">Thống kê</Link>,
+                label: <Link to="/">Thống kê</Link>,
               },
               {
                 key: "2",
                 icon: <AiOutlineBook />,
-                label: <Link to="/admin/products">Quản lý sách</Link>,
+                label: <Link to="/admin/products">Quản lý sản phẩm</Link>,
               },
               {
                 key: "3",
@@ -50,7 +50,17 @@ const BaseLayoutadmin = () => {
               {
                 key: "4",
                 icon: <AiOutlineVideoCamera />,
+                label: <Link to="/admin/user">Quản lý xuất nhập hàng hóa</Link>,
+              },
+              {
+                key: "4",
+                icon: <AiOutlineVideoCamera />,
                 label: <Link to="/admin/user">Quản lý người dùng</Link>,
+              },
+              {
+                key: "4",
+                icon: <AiOutlineVideoCamera />,
+                label: <Link to="/admin/user">Quản lý đánh giá</Link>,
               },
               {
                 key: "5",
@@ -60,7 +70,7 @@ const BaseLayoutadmin = () => {
               {
                 key: "6",
                 icon: <AiFillCloseCircle />,
-                label: <Link to="http://localhost:5173">Thoát</Link>,
+                label: <Link to="">Thoát</Link>,
               },
             ]}
           />
@@ -72,7 +82,7 @@ const BaseLayoutadmin = () => {
               icon={collapsed ? <AiOutlineMenuUnfold /> : <AiOutlineMenuFold />}
               onClick={() => setCollapsed(!collapsed)}
               style={{
-                fontSize: '16px',
+                fontSize: '19px',
                 width: 64,
                 height: 64,
               }}

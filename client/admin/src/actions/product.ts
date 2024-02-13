@@ -33,7 +33,7 @@ export const addProduct = createAsyncThunk(
     'product/addProduct',
     async (product) => {
         try {
-            const data = await instance.post(`/products`, product);
+            const data = await instance.post(`/product`, product);
             return data;
         } catch (error) {
 

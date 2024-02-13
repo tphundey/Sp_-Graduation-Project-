@@ -70,7 +70,7 @@ function App() {
     <Router>
       <Routes>
         {/* router user */}
-        <Route path="/" element={<BaseLayout />}>
+        {/* <Route path="/" element={<BaseLayout />}>
           <Route index element={<Home />} />
           <Route path="/products">
             <Route index element={<Sanpham />} />
@@ -80,22 +80,22 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/hoadon" element={<Hoadon />} />
-        </Route>
+        </Route> */}
 
         {/* router admin */}
         {role === "admin" && (
-          <Route path="/admin" element={<BaseLayoutadmin />}>
+          <Route path="/" element={<BaseLayoutadmin />}>
             <Route index element={<Dashboard />} />
-            <Route path="products" element={<Listproduct  />} />
-            <Route path="addsanpham" element={<AddProductFormProps onAddProduct={handleAddProduct} />} />
-            <Route path="suasanpham/:id" element={<SuaSanPham />} />
-            <Route path="category">
+            <Route path="admin/products" element={<Listproduct  />} />
+            <Route path="admin/addsanpham" element={<AddProductFormProps onAddProduct={handleAddProduct} />} />
+            <Route path="admin/suasanpham/:id" element={<SuaSanPham />} />
+            <Route path="admin/category">
               <Route index element={<Listdanhmuc />} />
-              <Route path="addCate" element={<AddCategory onAddCategory={handleAddCate} />} />
-              <Route path="updateCate/:id" element={<UpdateCategory />} />
+              <Route path="admin/addCate" element={<AddCategory onAddCategory={handleAddCate} />} />
+              <Route path="admin/updateCate/:id" element={<UpdateCategory />} />
             </Route>
-            <Route path="user" element={<Listuser />} />
-            <Route path="donhang" element={<Listdonhang />} />
+            <Route path="admin/user" element={<Listuser />} />
+            <Route path="admin/donhang" element={<Listdonhang />} />
           </Route>
         )}
       </Routes>
