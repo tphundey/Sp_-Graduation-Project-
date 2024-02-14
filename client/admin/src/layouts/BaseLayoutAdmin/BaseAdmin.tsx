@@ -53,22 +53,22 @@ const BaseLayoutadmin = () => {
                 label: <Link to="/admin/user">Quản lý xuất nhập hàng hóa</Link>,
               },
               {
-                key: "4",
+                key: "5",
                 icon: <AiOutlineVideoCamera />,
                 label: <Link to="/admin/user">Quản lý người dùng</Link>,
               },
               {
-                key: "4",
+                key: "6",
                 icon: <AiOutlineVideoCamera />,
                 label: <Link to="/admin/user">Quản lý đánh giá</Link>,
               },
               {
-                key: "5",
+                key: "7",
                 icon: <AiOutlineUser />,
                 label: <Link to="/admin/donhang">Quản lý đơn hàng</Link>,
               },
               {
-                key: "6",
+                key: "8",
                 icon: <AiFillCloseCircle />,
                 label: <Link to="">Thoát</Link>,
               },
