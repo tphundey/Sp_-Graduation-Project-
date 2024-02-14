@@ -25,14 +25,13 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Read by ID
 router.get("/:id", async (req, res) => {
   try {
-    const Category = await Category.findById(req.params.id);
-    if (!Category) {
+    const foundCategory = await Category.findById(req.params.id);
+    if (!foundCategory) {
       return res.status(404).json({ error: "Category not found" });
     }
-    return res.status(200).json(Category);
+    return res.status(200).json(foundCategory);
   } catch (error) {
     return res.status(500).json({ error: "Could not retrieve Category" });
   }

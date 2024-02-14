@@ -5,7 +5,7 @@ export const getCategories = createAsyncThunk(
     'categories/getCategories',
     async () => {
         try {
-            const data = await instance.get(`/categories`); // Assuming the API endpoint for fetching categories is /categories
+            const data = await instance.get(`/category`); // Assuming the API endpoint for fetching categories is /categories
             return data;
         } catch (error) {
             // Handle the error if needed
@@ -19,7 +19,7 @@ export const getCategoryById = createAsyncThunk(
     async (id, { rejectWithValue }) => {
         try {
             // Call the API to get the category with the corresponding ID
-            const response = await instance.get(`/categories/${id}`); // Assuming the API endpoint for fetching a category by ID is /categories/:id
+            const response = await instance.get(`/category/${id}`); // Assuming the API endpoint for fetching a category by ID is /categories/:id
 
             // Return the category data if successful
             return response.data;
@@ -35,7 +35,7 @@ export const addCategory = createAsyncThunk(
     'categories/addCategory',
     async (category) => {
         try {
-            const data = await instance.post(`/categories`, category); // Assuming the API endpoint for adding a new category is /categories
+            const data = await instance.post(`/category`, category); // Assuming the API endpoint for adding a new category is /categories
             return data;
         } catch (error) {
             // Handle the error if needed
@@ -48,7 +48,7 @@ export const updateCategory = createAsyncThunk(
     'categories/updateCategory',
     async (category) => {
         try {
-            const data = await instance.patch(`/categories/${category.id}`, category); // Assuming the API endpoint for updating a category is /categories/:id
+            const data = await instance.patch(`/category/${category.id}`, category); // Assuming the API endpoint for updating a category is /categories/:id
             return data;
         } catch (error) {
             // Handle the error if needed
@@ -63,7 +63,7 @@ export const removeCategory = createAsyncThunk(
         try {
             const confirm = window.confirm("Bạn có chắc xóa chứ!");
             if (confirm) {
-                await instance.delete(`/categories/${id}`); // Assuming the API endpoint for deleting a category is /categories/:id
+                await instance.delete(`/category/${id}`); // Assuming the API endpoint for deleting a category is /categories/:id
                 alert(`Xóa thành công`);
             } else {
                 // If the user cancels the deletion, return early without doing anything

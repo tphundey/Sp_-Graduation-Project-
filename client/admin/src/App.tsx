@@ -95,8 +95,8 @@ function App() {
             } } />} />
             <Route path="admin/category">
               <Route index element={<Listdanhmuc />} />
-              <Route path="admin/addCate" element={<AddCategory onAddCategory={handleAddCate} />} />
-              <Route path="admin/updateCate/:id" element={<UpdateCategory />} />
+              <Route path="addCate" element={<AddCategory onAddCategory={handleAddCate} />} />
+              <Route path="updateCate/:id" element={<UpdateCategory />} />
             </Route>
             <Route path="admin/user" element={<Listuser />} />
             <Route path="admin/donhang" element={<Listdonhang />} />

@@ -45,7 +45,7 @@ const AddCategory: React.FC<AddCateProps> = () => {
   const fetchMaterials = async () => {
     try {
       // Thay đổi URL này thành API endpoint của bạn để lấy dữ liệu chất liệu từ server
-      const response = await fetch('http://localhost:3000/categories');
+      const response = await fetch('http://localhost:3000/category');
       const data = await response.json();
       setMaterials(data);
     } catch (error) {

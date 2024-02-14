@@ -22,10 +22,10 @@ const Listdanhmuc = () => {
     fetchCategories();
   }, []);
 
-  const handleDeleteCategory = async (id: any) => {
+  const handleDeleteCategory = async (id) => {
     try {
       setLoading(true);
-      await axios.delete(`http://localhost:3000/Categories/${id}`);
+      await axios.delete(`http://localhost:3000/Category/${id}`);
       setCategories(categories.filter((category) => category.id !== id));
     } catch (error) {
       console.error('Có lỗi xảy ra khi xóa danh mục: ', error);
@@ -36,12 +36,12 @@ const Listdanhmuc = () => {
 
   const columns = [
     {
-      title: 'STT',
-      dataIndex: 'id',
-      key: 'id',
+      title: 'Số thứ tự',
+      dataIndex: 'index',
+      key: 'index',
     },
     {
-      title: 'Danh mục sách',
+      title: 'Hãng giày',
       dataIndex: 'name',
       key: 'name',
     },
@@ -76,15 +76,19 @@ const Listdanhmuc = () => {
     );
   }
 
+  // Tạo dataSource với số thứ tự
+  const dataSource = categories.map((category, index) => ({
+    ...category,
+    key: category.id,
+    index: index + 1, // Số thứ tự bắt đầu từ 1
+  }));
+
   return (
     <div>
-      <Link className='themspmoi' to="/admin/category/addCate">Thêm Danh mục!</Link>
+       <Link className='btn-neutral p-2' style={{ borderRadius: 4 }} to="/admin/category/addCate">Thêm hãng giày mới!</Link>
       <Table
         columns={columns}
-        dataSource={categories.map((category, index) => ({
-          ...category,
-          key: category.id
-        }))}
+        dataSource={dataSource}
         rowKey="id"
       />
     </div>

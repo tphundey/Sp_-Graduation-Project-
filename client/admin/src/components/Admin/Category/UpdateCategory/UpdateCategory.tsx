@@ -20,7 +20,7 @@ const UpdateCategory: React.FC = () => {
     const { control, handleSubmit, formState: { errors }, reset } = useForm<Cate>();
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/Categories/${id}`)
+        axios.get(`http://localhost:3000/Category/${id}`)
             .then((response) => {
                 reset(response.data);
             })
@@ -30,7 +30,7 @@ const UpdateCategory: React.FC = () => {
     }, [id, reset]);
 
     const onSubmit = (data: Cate) => {
-        axios.patch(`http://localhost:3000/Categories/${id}`, data)
+        axios.patch(`http://localhost:3000/Category/${id}`, data)
             .then(() => {
                 toast.success('Danh mục cập nhật thành công!', {
                     position: toast.POSITION.TOP_CENTER,
