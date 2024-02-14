@@ -58,7 +58,22 @@ routerProduct.put("/:id", async (req, res) => {
     return res.status(500).json({ error: "Could not update course" });
   }
 });
-
+// Update
+routerProduct.patch("/:id", async (req, res) => {
+  try {
+    const updatedCourse = await Product.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    if (!updatedCourse) {
+      return res.status(404).json({ error: "Course not found" });
+    }
+    return res.status(200).json(updatedCourse);
+  } catch (error) {
+    return res.status(500).json({ error: "Could not update course" });
+  }
+});
 // Delete
 routerProduct.delete("/:id", async (req, res) => {
   try {

@@ -7,27 +7,24 @@ import { Spin } from 'antd';
 
 const EditProduct: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    const [product, setProduct] = useState<any>({});
     const [loading, setLoading] = useState<boolean>(true);
 
-    const { control, handleSubmit, formState: { errors }, reset } = useForm({
-        defaultValues: {
-            name: '',
-            price: 0,
-            img: '',
-            color: '',
-            quantity: 0,
-            author: '',
-        }
-    });
+    const { control, handleSubmit, formState: { errors }, reset } = useForm();
 
     useEffect(() => {
-        setLoading(true); // Start loading
+        setLoading(true);
         // Fetch product data from the API and populate the form
         axios.get(`http://localhost:3000/product/${id}`)
             .then(response => {
-                setProduct(response.data);
-                reset(response.data); // Reset form values with product data
+                // Reset form values with product data
+                reset({
+                    name: response.data.name,
+                    price: response.data.price,
+                    img: response.data.image,
+                    color: response.data.colors[0], // Assuming the first color in the array is used
+                    quantity: response.data.quantity,
+                  // You didn't provide author field in the JSON data, so I left it empty
+                });
             })
             .catch(error => toast.error(error.message))
             .finally(() => setLoading(false)); // End loading when data is received
@@ -130,20 +127,7 @@ const EditProduct: React.FC = () => {
                     </label>
                     {errors.quantity && <div className="error">{errors.quantity.message}</div>}
                 </div>
-                <div>
-                    <label>
-                        Author:
-                        <Controller
-                            name="author"
-                            control={control}
-                            rules={{
-                                required: 'Author is required',
-                            }}
-                            render={({ field }) => <input type="text" {...field} />}
-                        />
-                    </label>
-                    {errors.author && <div className="error">{errors.author.message}</div>}
-                </div>
+            
                 <button type="submit">Update Product</button>
             </form>
             <ToastContainer />

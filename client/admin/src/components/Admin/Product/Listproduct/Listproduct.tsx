@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Pagination, Table, Button, Space, Modal } from 'antd';
 import { Spin } from 'antd';
-import axios from 'axios'; 
+import axios from 'axios';
 
 const Listproduct = () => {
-    const [products, setProducts] = useState([]); 
-    const [loading, setLoading] = useState(true); 
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setLoading(true);
@@ -21,7 +21,7 @@ const Listproduct = () => {
                 console.error('Error fetching products:', error);
                 setLoading(false);
             });
-    }, []); 
+    }, []);
 
     const columns = [
         {
@@ -37,7 +37,7 @@ const Listproduct = () => {
             render: (text) => <img width={120} src={text} alt="" />,
         },
         {
-            title: 'Tên sách',
+            title: 'Tên sản phẩm',
             dataIndex: 'name',
             key: 'name',
             width: 220
@@ -57,7 +57,10 @@ const Listproduct = () => {
             key: 'action',
             render: (text, record) => (
                 <Space size="middle">
-                    <Button className='bg-blue-500 text-white' type="primary">Sửa</Button>
+                    {/* Use Link to navigate to the edit page */}
+                    <Link to={`/admin/suasanpham/${record.id}`}>
+                        <Button className='bg-blue-500 text-white' type="primary">Sửa</Button>
+                    </Link>
                     <Button className='bg-red-500 text-white' type="danger" onClick={() => handleDelete(record)}>Xóa</Button>
                 </Space>
             ),
@@ -100,7 +103,7 @@ const Listproduct = () => {
 
     return (
         <div>
-            <Link className='btn-neutral p-2' style={{borderRadius:4}} to="/admin/addsanpham">Thêm sản phẩm mới!</Link>
+            <Link className='btn-neutral p-2' style={{ borderRadius: 4 }} to="/admin/addsanpham">Thêm sản phẩm mới!</Link>
 
             {loading ? (
                 <Spin
