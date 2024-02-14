@@ -47,25 +47,25 @@ routerOrder.get("/:id", async (req, res) => {
     return res.status(500).json({ error: "Could not retrieve course" });
   }
 });
-// Update Likes, LikedBy, and Comments
+// Update Order status
 routerOrder.patch("/:id", async (req, res) => {
   try {
-    const { likes, likedBy, comments } = req.body;
+    const { status } = req.body;
 
-    // Update likes, likedBy, and comments for the post
-    const updatedPost = await Order.findByIdAndUpdate(
+    // Update status for the order
+    const updatedOrder = await Order.findByIdAndUpdate(
       req.params.id,
-      { likes, likedBy, comments },
+      { status },
       { new: true }
     );
 
-    if (!updatedPost) {
-      return res.status(404).json({ error: "Post not found" });
+    if (!updatedOrder) {
+      return res.status(404).json({ error: "Order not found" });
     }
 
-    return res.status(200).json(updatedPost);
+    return res.status(200).json(updatedOrder);
   } catch (error) {
-    return res.status(500).json({ error: "Could not update post" });
+    return res.status(500).json({ error: "Could not update order" });
   }
 });
 // Update
