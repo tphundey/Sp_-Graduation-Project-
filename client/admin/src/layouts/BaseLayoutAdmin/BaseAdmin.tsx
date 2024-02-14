@@ -25,7 +25,7 @@ const BaseLayoutadmin = () => {
     <div>
       <Layout>
         <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className="demo-logo-vertical" />
+          <div className="demo-logo-vertical mt-7" />
           <Menu
             style={{ height: 900 }}
             theme="dark"
@@ -60,7 +60,7 @@ const BaseLayoutadmin = () => {
               {
                 key: "6",
                 icon: <AiOutlineVideoCamera />,
-                label: <Link to="/admin/user">Quản lý đánh giá</Link>,
+                label: <Link to="/admin/reviews">Quản lý đánh giá</Link>,
               },
               {
                 key: "7",

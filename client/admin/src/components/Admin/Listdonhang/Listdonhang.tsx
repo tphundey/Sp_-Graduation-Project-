@@ -80,11 +80,11 @@ const Listdonhang = () => {
                 </thead>
                 <tbody>
                     {Array.isArray(orderData) && orderData.map((order) => (
-                        <tr key={order.id}>
-                            <td>{order.id}</td>
+                        <tr  key={order.id}>
+                            <td className='p-4'>{order.id}</td>
                             <td>{order.paymentMethod}</td>
                             <td>{order.totalPrice}.000đ</td>
-                            <td style={{ width: 80 }}>
+                            <td className='p-4' style={{ width: 80 }}>
                                 <select
                                     style={{ width: 180 }}
                                     value={order.status}
@@ -98,7 +98,7 @@ const Listdonhang = () => {
                                 </select>
                                 {getStatusLabel(order.status)}
                             </td>
-                            <td>{order.paymentStatus}</td>
+                            <td className='p-10'>{order.paymentStatus}</td>
                             <td>
                                 <button onClick={() => setSelectedOrder(order)} className='text-blue-600'>Xem chi tiết</button>
                                 {selectedOrder && (

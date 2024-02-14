@@ -2,14 +2,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import "./App.css";
 import { useState, useEffect } from 'react';
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
-import BaseLayout from "./layouts/BaseLayoutUser/BaseLayout";
-import Home from "./pages/TrangChu";
-import ProductDetail from "./pages/ProductDetail/ProductDetail";
-import Sanpham from "./pages/Sanpham";
-import Thanhtoan from "./pages/Thanhtoan";
-import Signup from "./pages/Signup/Signup";
-import Signin from "./pages/Signin/Signin";
-import Hoadon from "./pages/HoaDon/Hoadon";
 import BaseLayoutadmin from "./layouts/BaseLayoutAdmin/BaseAdmin";
 import Listproduct from "./components/Admin/Product/Listproduct/Listproduct";
 import Listdanhmuc from "./components/Admin/Category/Listdanhmuc/Listdanhmuc";
@@ -24,6 +16,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import Dashboard from "./components/Admin/Thongke/Thongke";
 import Suasanpham from "./components/Admin/Product/Updatesanpham/Updatesanpham";
 import UpdateProductForm from "./components/Admin/Product/Updatesanpham/Updatesanpham";
+import ListReviews from "./components/Admin/Review/Listuser";
 
 interface Product {
   id: number;
@@ -70,22 +63,7 @@ function App() {
   return (
     
     <Router>
-      <Routes>
-        {/* router user */}
-        {/* <Route path="/" element={<BaseLayout />}>
-          <Route index element={<Home />} />
-          <Route path="/products">
-            <Route index element={<Sanpham />} />
-            <Route path=":id" element={<ProductDetail />} />
-          </Route>
-          <Route path="/thanhtoan" element={<Thanhtoan />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/hoadon" element={<Hoadon />} />
-        </Route> */}
-
-        {/* router admin */}
-        {role === "admin" && (
+      <Routes> 
           <Route path="/" element={<BaseLayoutadmin />}>
             <Route index element={<Dashboard />} />
             <Route path="admin/products" element={<Listproduct  />} />
@@ -99,9 +77,10 @@ function App() {
               <Route path="updateCate/:id" element={<UpdateCategory />} />
             </Route>
             <Route path="admin/user" element={<Listuser />} />
+            <Route path="admin/reviews" element={<ListReviews />} />
             <Route path="admin/donhang" element={<Listdonhang />} />
           </Route>
-        )}
+    
       </Routes>
     </Router>
   );
