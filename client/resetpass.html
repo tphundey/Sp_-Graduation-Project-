@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quên Mật Khẩu</title>
+    <!-- Thêm thư viện EmailJS -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("your_user_id"); // Thay "your_user_id" bằng User ID của bạn
+        })();
+    </script>
+</head>
+<body>
+    <h2>Quên Mật Khẩu</h2>
+    <p>Nhập địa chỉ email của bạn để nhận mã xác thực.</p>
+    <form id="forgotPasswordForm" onsubmit="sendEmail(event)">
+        <input type="email" id="email" placeholder="Nhập Email" required>
+        <button type="submit">Gửi Mã Xác Thực</button>
+    </form>
+
+    <div id="message"></div>
+
+    <script>
+        function sendEmail(event) {
+            event.preventDefault();
+            var email = document.getElementById('email').value;
+
+            // Gửi email và mã xác thực sử dụng EmailJS
+            var templateParams = {
+                to_email: email,
+                message: 'Đây là mã xác thực của bạn: 123456. Vui lòng không chia sẻ mã này với người khác.'
+            };
+
+            emailjs.sendForm('service_la6yzel', 'template_604npzp', 'forgotPasswordForm', 'lFDsvwdsjxYGi8aQ9')
+                .then((result) => {
+                    console.log(result.text);
+                }, (error) => {
+                    console.log(error.text);
+                });
+        }
+    </script>
+</body>
+</html>
