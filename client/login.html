@@ -9,7 +9,7 @@
 	<meta name="keywords"
 		content="Modern Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
 	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-function hideURLbar(){ window.scrollTo(0,1); } </script>
+    function hideURLbar(){ window.scrollTo(0,1); } </script>
 	<!-- Meta tag Keywords -->
 	<!-- css files -->
 	<link rel="stylesheet" href="css2/style.css" type="text/css" media="all" /> <!-- Style-CSS -->
@@ -21,7 +21,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 </head>
 
 <body>
-	<div style="background-color: black;">
+	<div style="background-color: aquamarine;">
 		<div class="main-container">
 			<!--header-->
 			<div class="header-w3l">
@@ -34,10 +34,10 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					<h2>Login Now</h2>
 				</div>
 				<div class="sub-main-w3ls">
-					<form action="#" method="post">
-						<input placeholder="Enter your E-mail" name="enter mail" type="email" required="">
+					<form id="loginForm">
+						<input placeholder="Enter your E-mail" name="email" type="email" required="">
 						<span class="icon1"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-						<input placeholder="Enter Password" name="Password" type="password" required="">
+						<input placeholder="Enter Password" name="password" type="password" required="">
 						<span class="icon2"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
 						<div class="checkbox-w3">
 							<span class="check-w3"><input type="checkbox" />Remember Me</span>
@@ -67,6 +67,48 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 	<script type="text/javascript" src="js2/jquery-2.1.4.min.js"></script><!--common-js-->
 	<script src="js2/jquery.vide.min.js"></script><!--video-js-->
 	<!-- //js -->
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var form = document.getElementById('loginForm');
+
+			form.addEventListener('submit', function (event) {
+				event.preventDefault();
+
+				var email = document.querySelector('input[name="email"]').value;
+				var password = document.querySelector('input[name="password"]').value;
+
+				// Send GET request to API to check login
+				fetch('http://localhost:3000/user')
+					.then(response => {
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						return response.json();
+					})
+					.then(data => {
+						// Handle response from server
+						var found = false;
+						for (var i = 0; i < data.length; i++) {
+							if (data[i].email === email && data[i].password === password) {
+								// Login successful
+								found = true;
+								break;
+							}
+						}
+						if (found) {
+							// Login successful, set cookie and redirect
+							document.cookie = "user_email=" + email + "; expires=Thu, 18 Dec 2025 12:00:00 UTC; path=/";
+							window.location.href = "/dashboard"; // Redirect to dashboard page
+						} else {
+							alert("Login failed. Please check your email and password.");
+						}
+					})
+					.catch(error => {
+						console.error('There has been a problem with your fetch operation:', error);
+					});
+			});
+		});
+	</script>
 </body>
 
 </html>

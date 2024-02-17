@@ -4,7 +4,7 @@ import { Table, Button, Popconfirm, Spin } from 'antd';
 
 const Listuser = () => {
     const [userData, setUserData] = useState([]);
-    const [loading, setLoading] = useState(true); // Thêm biến loading
+    const [loading, setLoading] = useState(true);
 
     const columns = [
         {
@@ -14,8 +14,8 @@ const Listuser = () => {
         },
         {
             title: 'Tên người dùng',
-            dataIndex: 'displayName',
-            key: 'displayName',
+            dataIndex: 'full_name',
+            key: 'full_name',
         },
         {
             title: 'Email',
@@ -23,10 +23,14 @@ const Listuser = () => {
             key: 'email',
         },
         {
-            title: 'Hình ảnh',
-            dataIndex: 'photoURL',
-            key: 'photoURL',
-            render: (text) => <img src={text} alt="" />,
+            title: 'Địa chỉ',
+            dataIndex: 'address',
+            key: 'address',
+        },
+        {
+            title: 'Số điện thoại',
+            dataIndex: 'phone',
+            key: 'phone',
         },
         {
             title: 'Thao tác',
@@ -44,29 +48,36 @@ const Listuser = () => {
     ];
 
     useEffect(() => {
-        setLoading(true); // Bắt đầu loading
-        axios.get('http://localhost:3000/googleAccount')
+        setLoading(true);
+        axios.get('http://localhost:3000/user')
             .then((response) => {
-                setUserData(response.data);
+                const formattedData = response.data[0].users.map(user => ({
+                    id: user.id,
+                    full_name: user.full_name,
+                    email: user.email,
+                    address: user.address,
+                    phone: user.phone,
+                }));
+                setUserData(formattedData);
             })
             .catch((error) => {
                 console.error('Lỗi khi lấy dữ liệu người dùng:', error);
             })
-            .finally(() => setLoading(false)); // Kết thúc loading khi dữ liệu đã được nhận
+            .finally(() => setLoading(false));
     }, []);
 
     const handleDeleteUser = (userId) => {
         const shouldDelete = window.confirm('Bạn có chắc chắn muốn xóa người dùng này?');
         if (shouldDelete) {
-            setLoading(true); // Bắt đầu loading khi thực hiện xóa người dùng
-            axios.delete(`http://localhost:3000/googleAccount/${userId}`)
+            setLoading(true);
+            axios.delete(`http://localhost:3000/user/${userId}`)
                 .then(() => {
                     setUserData((prevUserData) => prevUserData.filter((user) => user.id !== userId));
                 })
                 .catch((error) => {
                     console.error('Lỗi khi xóa người dùng:', error);
                 })
-                .finally(() => setLoading(false)); // Kết thúc loading khi xóa người dùng thành công hoặc thất bại
+                .finally(() => setLoading(false));
         }
     };
 
@@ -84,8 +95,8 @@ const Listuser = () => {
         );
     }
     return (
-        <div >
-            <div >
+        <div>
+            <div>
                 <Table columns={columns} dataSource={userData} />
             </div>
         </div>
