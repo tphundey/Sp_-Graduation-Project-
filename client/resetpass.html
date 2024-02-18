@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +8,28 @@
     <!-- Thêm thư viện EmailJS -->
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script type="text/javascript">
-        (function(){
+        (function () {
             emailjs.init("your_user_id"); // Thay "your_user_id" bằng User ID của bạn
         })();
     </script>
+    <!-- Thêm Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h2>Quên Mật Khẩu</h2>
-    <p>Nhập địa chỉ email của bạn để nhận mã xác thực.</p>
-    <form id="forgotPasswordForm" onsubmit="sendEmail(event)">
-        <input type="email" id="email" placeholder="Nhập Email" required>
-        <button type="submit">Gửi Mã Xác Thực</button>
-    </form>
 
-    <div id="message"></div>
+<body class="bg-gray-100 h-screen flex justify-center items-center">
+    <div class="max-w-md w-full p-8 bg-white rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold mb-4">Quên Mật Khẩu</h2>
+        <p class="mb-4">Nhập địa chỉ email của bạn để nhận mã xác thực.</p>
+        <form id="forgotPasswordForm" onsubmit="sendEmail(event)" class="mb-4">
+            <input type="email" id="email" placeholder="Nhập Email" required
+                class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500">
+            <button type="submit"
+                class="w-full mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Gửi
+                Mã Xác Thực</button>
+        </form>
+
+        <div id="message" class="text-red-500"></div>
+    </div>
 
     <script>
         function sendEmail(event) {
@@ -42,4 +51,5 @@
         }
     </script>
 </body>
+
 </html>
