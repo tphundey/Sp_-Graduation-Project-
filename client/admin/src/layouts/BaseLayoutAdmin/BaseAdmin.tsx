@@ -50,7 +50,7 @@ const BaseLayoutadmin = () => {
               {
                 key: "4",
                 icon: <AiOutlineVideoCamera />,
-                label: <Link to="/admin/user">Quản lý xuất nhập hàng hóa</Link>,
+                label: <Link to="/admin/coupon">Quản lý mã giảm giá</Link>,
               },
               {
                 key: "5",

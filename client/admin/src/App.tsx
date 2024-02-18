@@ -17,6 +17,8 @@ import Dashboard from "./components/Admin/Thongke/Thongke";
 import Suasanpham from "./components/Admin/Product/Updatesanpham/Updatesanpham";
 import UpdateProductForm from "./components/Admin/Product/Updatesanpham/Updatesanpham";
 import ListReviews from "./components/Admin/Review/Listuser";
+import DiscountCodes from "./components/Admin/Coupon/Listuser";
+import CreateDiscountCode from "./components/Admin/Coupon/addCoupon";
 
 interface Product {
   id: number;
@@ -61,26 +63,27 @@ function App() {
     setCategory([...categories, newCate]);
   }
   return (
-    
+
     <Router>
-      <Routes> 
-          <Route path="/" element={<BaseLayoutadmin />}>
-            <Route index element={<Dashboard />} />
-            <Route path="admin/products" element={<Listproduct  />} />
-            <Route path="admin/addsanpham" element={<AddProductFormProps onAddProduct={handleAddProduct} />} />
-            <Route path="admin/suasanpham/:id" element={<UpdateProductForm onUpdateProduct={function (product: any): void {
-              throw new Error("Function not implemented.");
-            } } />} />
-            <Route path="admin/category">
-              <Route index element={<Listdanhmuc />} />
-              <Route path="addCate" element={<AddCategory onAddCategory={handleAddCate} />} />
-              <Route path="updateCate/:id" element={<UpdateCategory />} />
-            </Route>
-            <Route path="admin/user" element={<Listuser />} />
-            <Route path="admin/reviews" element={<ListReviews />} />
-            <Route path="admin/donhang" element={<Listdonhang />} />
+      <Routes>
+        <Route path="/" element={<BaseLayoutadmin />}>
+          <Route index element={<Dashboard />} />
+          <Route path="admin/products" element={<Listproduct />} />
+          <Route path="admin/addsanpham" element={<AddProductFormProps onAddProduct={handleAddProduct} />} />
+          <Route path="admin/suasanpham/:id" element={<UpdateProductForm onUpdateProduct={function (product: any): void {
+            throw new Error("Function not implemented.");
+          }} />} />
+          <Route path="admin/category">
+            <Route index element={<Listdanhmuc />} />
+            <Route path="addCate" element={<AddCategory onAddCategory={handleAddCate} />} />
+            <Route path="updateCate/:id" element={<UpdateCategory />} />
           </Route>
-    
+          <Route path="admin/user" element={<Listuser />} />
+          <Route path="admin/coupon" element={<DiscountCodes />} />
+          <Route path="admin/addcoupon" element={<CreateDiscountCode />} />
+          <Route path="admin/reviews" element={<ListReviews />} />
+          <Route path="admin/donhang" element={<Listdonhang />} />
+        </Route>
       </Routes>
     </Router>
   );
