@@ -20,7 +20,7 @@ const CreateDiscountCode = () => {
 
     return (
         <div>
-            <Link className='btn-neutral p-2' style={{ borderRadius: 4 }} to="/admin/category/addCate">Thêm hãng giày mới!</Link>
+            
             <Form
                 form={form}
                 layout="vertical"

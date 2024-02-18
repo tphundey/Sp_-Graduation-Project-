@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Table, Button, Popconfirm, Spin, message } from 'antd';
+import { Link } from 'react-router-dom';
 
 const DiscountCodes = () => {
     const [discountCodes, setDiscountCodes] = useState([]);
@@ -95,6 +96,7 @@ const DiscountCodes = () => {
     return (
         <div>
             <div>
+                <Link className='btn-neutral p-2' style={{ borderRadius: 4 }} to="/admin/addcoupon">Thêm mã giảm giá mới!</Link>
                 <Table columns={columns} dataSource={discountCodes} />
             </div>
         </div>
